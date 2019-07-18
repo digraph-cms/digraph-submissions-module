@@ -1,0 +1,17 @@
+{
+    "name": "digraphcms/digraph-submissions",
+    "description": "Digraph module to provide user submission tools.",
+    "type": "digraph-module",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Joby Elliott",
+            "email": "joby@byjoby.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Digraph\\Modules\\Submissions\\": "src/"
+        }
+    }
+}
