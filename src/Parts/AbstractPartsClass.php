@@ -1,8 +1,8 @@
 <?php
 /* Digraph Core | https://gitlab.com/byjoby/digraph-core | MIT License */
-namespace Digraph\Modules\digraph_submissions\Parts;
+namespace Digraph\Modules\Submissions\Parts;
 
-use Digraph\Modules\digraph_submissions\Submission;
+use Digraph\Modules\Submissions\Submission;
 
 abstract class AbstractPartsClass
 {
@@ -34,8 +34,8 @@ abstract class AbstractPartsClass
     public function __construct(Submission &$submission)
     {
         $this->submission = $submission;
-        $this->chunks['submitter'] = new Chunks\SubmitterMeta($this,'submitter','Submitter information');
-        $this->chunks['submission'] = new Chunks\SubmissionMeta($this,'submission','Submission information');
+        $this->chunks['submitter'] = new Chunks\SubmitterMeta($this, 'submitter', 'Submitter information');
+        $this->chunks['submission'] = new Chunks\SubmissionMeta($this, 'submission', 'Submission information');
         $this->construct();
     }
 }
