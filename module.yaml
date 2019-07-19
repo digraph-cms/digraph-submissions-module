@@ -17,6 +17,6 @@ permissions:
   add:
     '*/submission': [deny all]
   submissions:
-    submission/submit: [allow all]
-    submission/edit: [deny all,"allow group webmaster, editor"]
-    submission/view: [deny all,"allow group webmaster, editor"]
+    submission/*: [deny all]
+    submission/edit: ["allow group webmaster"]
+    submission/view: ["allow group webmaster, editor"]

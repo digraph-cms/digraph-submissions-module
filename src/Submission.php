@@ -72,18 +72,33 @@ class Submission extends Noun
         return $this->defaultPartsClass();
     }
 
+    public function isMine()
+    {
+        //only users can have access to props
+        $u = $this->cms()->helper('users');
+        if (!($user = $u->user())) {
+            return false;
+        }
+        //check if user created this proposal
+        if ($user->id() == $this['dso.created.user.id']) {
+            return true;
+        }
+        //return false by default
+        return false;
+    }
+
     public function isViewable()
     {
         //if user can edit, they can view
         if ($this->isEditable()) {
             return true;
         }
-        //owner can view
+        //owner can always view
         if ($this->cms()->helper('users')->id() == $this['owner']) {
             return true;
         }
-        //permissions via type
-        if ($this->cms()->helper('permissions')->check($this['dso.type'].'/view')) {
+        //permissions through submissions category submission/view
+        if ($this->cms()->helper('permissions')->check('submission/view', 'submissions')) {
             return true;
         }
         //default false
@@ -96,8 +111,8 @@ class Submission extends Noun
         if (parent::isEditable()) {
             return true;
         }
-        //permissions via type
-        if ($this->cms()->helper('permissions')->check($this['dso.type'].'/edit')) {
+        //permissions through submissions category submission/edit
+        if ($this->cms()->helper('permissions')->check('submission/edit', 'submissions')) {
             return true;
         }
         //default false

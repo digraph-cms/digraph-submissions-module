@@ -13,20 +13,25 @@ $parts = $submission->parts();
 $chunks = $parts->chunks();
 
 if (!$submission->complete()) {
-    if ($submission->isEditable()) {
-        $n->warning('This submission has not been fully completed yet. Please finish filling out any sections marked "incomplete."');
+    if ($submission->isMine()) {
+        $n->warning('Your submission has not been fully completed yet. Please finish filling out any sections marked "incomplete."<br><a href="'.$submission->url().'">Re-check completion status.</a>');
     } else {
-        $n->error('Submission is currently incomplete.');
+        $n->error('This submission is currently incomplete.');
     }
+} elseif ($submission->isMine()) {
+    $n->confirmation('Your submission is complete.');
 }
 
 if ($chunks) {
     //determine if we're in edit mode
     $editMode = false;
-    if ($submission->isEditable()) {
+    if ($submission->isMine()) {
         if (!$submission->complete()) {
             $editMode = true;
-        } elseif ($package['url.args.edit']) {
+        }
+    }
+    if ($submission->isEditable()) {
+        if ($package['url.args.edit']) {
             $editMode = true;
         }
     }
