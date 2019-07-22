@@ -14,7 +14,14 @@ $chunks = $parts->chunks();
 
 if (!$submission->complete()) {
     if ($submission->isMine()) {
-        $n->warning('Your submission has not been fully completed yet. Please finish filling out any sections marked "incomplete."<br><a href="'.$submission->url().'">Re-check completion status.</a>');
+        $icWarning = 'Your submission has not been fully completed yet. Please finish filling out any sections marked "incomplete."';
+        if ($window = $submission->window()) {
+            if ($end = $window->endHR()) {
+                $icWarning .= '<br>Submission can be edited until '.$end;
+            }
+        }
+        $icWarning .= '<br><a href="'.$submission->url().'">Re-check completion status.</a>';
+        $n->warning($icWarning);
     } else {
         $n->error('This submission is currently incomplete.');
     }
