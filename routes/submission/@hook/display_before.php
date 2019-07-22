@@ -19,7 +19,9 @@ if (!$submission->complete()) {
         $n->error('This submission is currently incomplete.');
     }
 } elseif ($submission->isMine()) {
-    $n->confirmation('Your submission is complete.');
+    if (!$package['url.args.edit']) {
+        $n->confirmation('Your submission is complete.');
+    }
 }
 
 if ($chunks) {
@@ -39,11 +41,17 @@ if ($chunks) {
     if ($submission->isEditable() && !$editMode) {
         $url = $package->url();
         $url['args.edit'] = true;
-        echo "<p><a href='$url' class='cta-button'>Edit submission</a></p>";
+        $editLink = "<a href='$url'>Edit submission</a>";
+        if ($window = $submission->window()) {
+            if ($end = $window->endHR()) {
+                $editLink .= '<br>Submission can be edited until '.$end;
+            }
+        }
+        $n->notice($editLink);
     } elseif ($submission->isEditable() && $package['url.args.edit']) {
         $url = $package->url();
         unset($url['args.edit']);
-        echo "<p><a href='$url' class='cta-button'>Exit editing mode</a></p>";
+        $n->notice("<a href='$url'>Exit editing mode</a>");
     }
     //set cache based on edit mode
     if ($editMode) {
