@@ -55,6 +55,26 @@ class SubmissionWindow extends Noun
         ]);
     }
 
+    public function completeSubmissions()
+    {
+        return array_filter(
+            $this->allSubmissions(),
+            function ($sub) {
+                return $sub->complete();
+            }
+        );
+    }
+
+    public function incompleteSubmissions()
+    {
+        return array_filter(
+            $this->allSubmissions(),
+            function ($sub) {
+                return !$sub->complete();
+            }
+        );
+    }
+
     public function mySubmissions()
     {
         if (!$this->cms()->helper('users')->user()) {
