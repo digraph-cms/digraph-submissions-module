@@ -14,14 +14,18 @@ $chunks = $parts->chunks();
 
 if (!$submission->complete()) {
     if ($submission->isMine()) {
-        $icWarning = 'Your submission has not been fully completed yet. Please finish filling out any sections marked "incomplete."';
-        if ($window = $submission->window()) {
-            if ($end = $window->endHR()) {
-                $icWarning .= '<br>Submission can be edited until '.$end;
+        if ($submission->isEditable()) {
+            $icWarning = 'Your submission has not been fully completed yet. Please finish filling out any sections marked "incomplete."';
+            if ($window = $submission->window()) {
+                if ($end = $window->endHR()) {
+                    $icWarning .= '<br>Submission can be edited until '.$end;
+                }
             }
+            $icWarning .= '<br><a href="'.$submission->url().'">Re-check completion status.</a>';
+            $n->warning($icWarning);
+        } else {
+            $n->error('Your submission was not completed by the submission deadline of '.$submission->window()->endHR());
         }
-        $icWarning .= '<br><a href="'.$submission->url().'">Re-check completion status.</a>';
-        $n->warning($icWarning);
     } else {
         $n->error('This submission is currently incomplete.');
     }
@@ -35,7 +39,7 @@ if ($chunks) {
     //determine if we're in edit mode
     $editMode = false;
     if ($submission->isMine()) {
-        if (!$submission->complete()) {
+        if (!$submission->complete() && $submission->isEditable()) {
             $editMode = true;
         }
     }

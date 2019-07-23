@@ -78,7 +78,7 @@ abstract class AbstractChunk
 
     public function body_incomplete()
     {
-        echo "<em>section incomplete</em>";
+        echo "<em>section has not been completed</em>";
     }
 
     public function submission()

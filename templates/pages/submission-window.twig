@@ -5,33 +5,44 @@
     {% if window.pending %}
         {# Window hasn't opened yet #}
         <div class="submission-window-status notification notification-notice">
-            <strong>Opens: {{window.openHR}}</strong>
             {% if window.close %}
-            <br>Deadline: {{window.closeHR}}
+                Submission period will be {{window.startHR}}
+                to {{window.endHR}}
+            {% else %}
+                Submission window opens {{window.startHR}}
             {% endif %}
         </div>
     {% elseif window.ended %}
         {# Window has ended #}
         <div class="submission-window-status ended notification notification-warning">
-            <strong>Ended: {{window.closeHR}}</strong>
             {% if window.open %}
-            <br>Opened: {{window.openHR}}
+                Submission period was from {{window.startHR}}
+                to {{window.endHR}}
+            {% else %}
+                Submission period ended {{window.endHR}}
             {% endif %}
         </div>
     {% else %}
         {# Window is open #}
-        <div class="submission-window-status open notification notification-confirmation">
-            <strong>Currently open</strong>
-            {% if window.close %}
-            <br>Deadline: {{window.closeHR}}
-            {% endif %}
-        </div>
-        {# List existing submissions for current user #}
+        {% if window.close %}
+            <div class="submission-window-status open notification notification-confirmation">
+                Submission period will close {{window.endHR}}
+            </div>
+        {% endif %}
+    {% endif %}
+
+    {# List existing submissions for current user #}
         {% if window.mySubmissions %}
         <h2>My submissions</h2>
         <ul>
             {% for submission in window.mySubmissions %}
-                <li>{{submission.link|raw}}</li>
+                <li>
+                    {% if submission.complete %}
+                        {{submission.link|raw}}
+                    {% else %}
+                        <strong>{{submission.link|raw}} (INCOMPLETE)</strong>
+                    {% endif %}
+                </li>
             {% endfor %}
         </ul>
         {% if window.maxperuser %}
@@ -42,10 +53,10 @@
             {% endif %}
         {% endif %}
         {% else %}
-        <h2>Create submission</h2>
         {% endif %}
         {# begin submission link if applicable #}
         {% if window.canSubmit %}
+            <h2>Create submission</h2>
             <a href="{{window.url('submit')}}" class="cta-button">
                 Start new submission
             </a>
@@ -56,5 +67,4 @@
                 {% endif %}
             {% endif %}
         {% endif %}
-    {% endif %}
 </div>
