@@ -67,6 +67,7 @@ abstract class AbstractChunk
         }
         if ($form->handle()) {
             $this->form_handle($form);
+            $this->optOut(false);
             $url = $this->submission()->url('chunk', [
                 'chunk' => $this->name
             ], true);
