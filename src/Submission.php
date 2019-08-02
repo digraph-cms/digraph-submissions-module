@@ -11,6 +11,25 @@ class Submission extends Noun
 
     protected $parts;
 
+    public function insert() : bool
+    {
+        $this->setClasses();
+        return parent::insert();
+    }
+
+    public function update(bool $sneaky = false) : bool
+    {
+        $this->setClasses();
+        return parent::update($sneaky);
+    }
+
+    protected function setClasses()
+    {
+        $this['submitterfieldclass'] = $this->submitterFieldClass();
+        $this['submissionfieldclass'] = $this->submissionFieldClass();
+        $this['partsclass'] = $this->partsClass();
+    }
+
     protected function defaultSubmitterFieldClass()
     {
         return SubmitterField::class;
@@ -23,7 +42,7 @@ class Submission extends Noun
 
     public function submitterFieldClass()
     {
-        if ($this['submitterfieldclass']) {
+        if ($this['submitterfieldclass'] && class_exists($this['submitterfieldclass'])) {
             return $this['submitterfieldclass'];
         }
         return $this->defaultSubmitterFieldClass();
@@ -31,7 +50,7 @@ class Submission extends Noun
 
     public function submissionFieldClass()
     {
-        if ($this['submissionfieldclass']) {
+        if ($this['submissionfieldclass'] && class_exists($this['submissionfieldclass'])) {
             return $this['submissionfieldclass'];
         }
         return $this->defaultSubmissionFieldClass();
@@ -66,7 +85,7 @@ class Submission extends Noun
 
     public function partsClass()
     {
-        if ($this['partsclass']) {
+        if ($this['partsclass'] && class_exists($this['partsclass'])) {
             return $this['partsclass'];
         }
         return $this->defaultPartsClass();
