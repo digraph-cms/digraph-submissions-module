@@ -98,8 +98,8 @@ class Submission extends Noun
         if (!($user = $u->user())) {
             return false;
         }
-        //check if user created this proposal
-        if ($user->id() == $this['dso.created.user.id']) {
+        //check if user is owner of this proposal
+        if ($user->id() == $this['owner']) {
             return true;
         }
         //return false by default
@@ -113,7 +113,7 @@ class Submission extends Noun
             return true;
         }
         //owner can always view
-        if ($this->cms()->helper('users')->id() == $this['owner']) {
+        if ($this->isMine()) {
             return true;
         }
         //permissions through submissions category submission/view
