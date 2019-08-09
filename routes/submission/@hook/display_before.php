@@ -27,10 +27,14 @@ if (!$submission->complete()) {
             $n->error('Your submission was not completed by the submission deadline of '.$submission->window()->endHR());
         }
     } else {
-        $n->error('This submission is currently incomplete.');
+        if ($submission->isEditable()) {
+            $n->warning('This submission is currently incomplete.');
+        } else {
+            $n->error('This submission was not completed.');
+        }
     }
 } elseif ($submission->isMine()) {
-    if (!$package['url.args.edit']) {
+    if ($submission->isEditable() && !$package['url.args.edit']) {
         $n->confirmation('Your submission is complete.');
     }
 }
