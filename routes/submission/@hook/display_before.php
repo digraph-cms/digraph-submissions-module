@@ -17,8 +17,8 @@ if (!$submission->complete()) {
         if ($submission->isEditable()) {
             $icWarning = 'Your submission has not been fully completed yet. Please finish filling out any sections marked "incomplete."';
             if ($window = $submission->window()) {
-                if ($end = $window->endHR()) {
-                    $icWarning .= '<br>Submission can be edited until '.$end;
+                if ($window->end() && $window->end() > time()) {
+                    $icWarning .= '<br>Submission can be edited until '.$window->endHR();
                 }
             }
             $icWarning .= '<br><a href="'.$submission->url().'">Re-check completion status.</a>';
@@ -58,8 +58,8 @@ if ($chunks) {
         $url['args.edit'] = true;
         $editLink = "<a href='$url'>Edit submission</a>";
         if ($window = $submission->window()) {
-            if ($end = $window->endHR()) {
-                $editLink .= '<br>Submission can be edited until '.$end;
+            if ($window->end() && $window->end() > time()) {
+                $editLink .= '<br>Submission can be edited until '.$window->endHR();
             }
         }
         $n->notice($editLink);
