@@ -11,6 +11,15 @@ class Submission extends Noun
 
     protected $parts;
 
+    /**
+     * Override this method to do something after a submission is added
+     *
+     * @return void
+     */
+    public function hook_Added()
+    {
+    }
+
     public function insert() : bool
     {
         $this->setClasses();

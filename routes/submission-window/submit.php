@@ -53,6 +53,7 @@ if ($form->handle()) {
             )
         );
     }
+    $form->object->hook_Added();
     $package->redirect(
         $form->object->hook_postAddUrl()
     );
