@@ -143,6 +143,10 @@ class Submission extends Noun
         if ($this->cms()->helper('permissions')->check('submission/edit', 'submissions')) {
             return true;
         }
+        //isMine and window is open
+        if ($this->isMine() && $this->window()) {
+            return $this->window()->open();
+        }
         //default false
         return false;
     }
