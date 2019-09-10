@@ -32,7 +32,7 @@
     {% endif %}
 
     {# List existing submissions for current user #}
-        {% if window.mySubmissions %}
+    {% if window.mySubmissions %}
         <h2>My submissions</h2>
         <ul>
             {% for submission in window.mySubmissions %}
@@ -52,18 +52,17 @@
                 <p>Maximum submissions per user: {{window.maxperuser}}.</p>
             {% endif %}
         {% endif %}
-        {% else %}
-        {% endif %}
-        {# begin submission link if applicable #}
-        {% if window.canSubmit %}
-            <a href="{{window.url('submit')}}" class="cta-button">
-                Start new submission
-            </a>
-        {% else %}
-            {% if window.maxperuser %}
-                {% if window.mySubmissions|length >= window.maxperuser %}
-                    <p>You have used {{window.mySubmissions|length}} of {{window.maxperuser}} allowed submissions per user.</p>
-                {% endif %}
+    {% endif %}
+    {# begin submission link if applicable #}
+    {% if window.canSubmit %}
+        <p><a href="{{window.url('submit')}}" class="cta-button">
+            Start new submission
+        </a></p>
+    {% else %}
+        {% if window.maxperuser %}
+            {% if window.mySubmissions|length >= window.maxperuser %}
+                <p>You have used {{window.mySubmissions|length}} of {{window.maxperuser}} allowed submissions per user.</p>
             {% endif %}
         {% endif %}
+    {% endif %}
 </div>
