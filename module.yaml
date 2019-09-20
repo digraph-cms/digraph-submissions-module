@@ -14,6 +14,7 @@ permissions:
   url:
     submission-window/submit: [allow group user]
     submission/chunk: [allow group user]
+    submission/status: [allow group user]
   add:
     '*/submission': [deny all]
   submissions:

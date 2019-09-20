@@ -79,7 +79,7 @@ abstract class AbstractChunk
 
     public function body_incomplete()
     {
-        echo "<em>section has not been completed</em>";
+        echo "<em>This section is incomplete</em>";
     }
 
     public function submission()
@@ -87,7 +87,7 @@ abstract class AbstractChunk
         return $this->parts->submission();
     }
 
-    public function body($disableEdit=false)
+    public function body()
     {
         ob_start();
         $mode = ($this->complete()?'complete':'incomplete');
@@ -102,7 +102,7 @@ abstract class AbstractChunk
         echo "<div class='submission-chunk $mode'>";
         echo "<div class='submission-chunk-label'>".$this->label."</div>";
         //main body
-        if (!$disableEdit && $this->submission()->isEditable() && (!$this->complete() || @$_GET['edit'])) {
+        if ($this->submission()->isEditable() && @$_GET['edit']) {
             //add opt-out interface
             if ($this->optOutMessage) {
                 echo "<div class='digraph-block opt-out'>";
@@ -110,7 +110,7 @@ abstract class AbstractChunk
                     'chunk' => $this->name,
                     'optout' => true
                 ], true);
-                echo "<a href='$url'>".$this->optOutMessage."</a>";
+                echo "<a class='cta-button green' style='font-size:1em;' href='$url'>".$this->optOutMessage."</a>";
                 echo "</div>";
             }
             //instructions
@@ -119,13 +119,6 @@ abstract class AbstractChunk
             }
             //display editing form if editing is allowed and either incomplete or edit requested
             echo $this->body_edit();
-            //display cancel link
-            if ($this->complete()) {
-                $url = $this->submission()->url('chunk', [
-                    'chunk' => $this->name
-                ], true);
-                echo "<a class='mode-switch' href='$url'>Cancel editing</a>";
-            }
         } elseif ($this->complete()) {
             //display complete content if completed
             if ($this->optOut()) {
@@ -133,19 +126,28 @@ abstract class AbstractChunk
             } else {
                 echo $this->body_complete();
             }
-            //display edit link
-            if ($this->submission()->isEditable()) {
+        } else {
+            //display incomplete content if incomplete and not editable
+            echo $this->body_incomplete();
+        }
+        //display edit/cancel edit links
+        if ($this->submission()->isEditable()) {
+            if (@$_GET['edit']) {
+                $url = $this->submission()->url('chunk', [
+                    'chunk' => $this->name
+                ], true);
+                echo "<a class='mode-switch' href='$url'>Cancel editing</a>";
+            } else {
                 $url = $this->submission()->url('chunk', [
                     'chunk' => $this->name,
                     'edit' => true
                 ], true);
-                if (!$disableEdit) {
-                    echo "<a class='mode-switch' href='$url'>Edit section</a>";
+                if ($this->complete()) {
+                    echo "<a class='mode-switch' href='$url'>Edit this section</a>";
+                } else {
+                    echo "<a class='mode-switch' href='$url'>Complete this section</a>";
                 }
             }
-        } else {
-            //display incomplete content if incomplete and not editable
-            echo $this->body_incomplete();
         }
         echo "</div>";
         //if form was used, remove opt-out
