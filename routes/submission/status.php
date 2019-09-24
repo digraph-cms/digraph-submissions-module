@@ -8,6 +8,7 @@ if (!$submission->isViewable()) {
     $package->error(403);
 }
 $n = $cms->helper('notifications');
+$reloadTime = 15;
 
 echo "<div class='submission-status-wrapper'>";
 if (!$submission->complete()) {
@@ -15,13 +16,14 @@ if (!$submission->complete()) {
         if ($submission->isEditable()) {
             $icWarning = 'Your submission has not been fully completed yet. Please finish any incomplete sections.';
             if ($window = $submission->window()) {
-                if ($window->end() && $window->end() > time()) {
+                if ($window->end() && !$window->ended()) {
                     $icWarning .= '<br>Submission can be edited until '.$window->endHR();
                 }
             }
             $n->printNotice($icWarning);
         } else {
             $n->printError('Your submission was not completed by the submission deadline of '.$submission->window()->endHR());
+            $reloadTime = 60;
         }
     } else {
         if ($submission->isEditable()) {
@@ -29,10 +31,12 @@ if (!$submission->complete()) {
         } else {
             $n->printError('This submission was not completed.');
         }
+        $reloadTime = 60;
     }
 } elseif ($submission->isMine()) {
     if ($submission->isEditable() && !$package['url.args.edit']) {
         $n->printConfirmation('This submission is complete.');
+        $reloadTime = 60;
     }
 }
 echo "</div>";
@@ -46,6 +50,6 @@ echo "</div>";
 <script>
     setTimeout(function() {
         window.location.reload(1);
-    }, 15 * 1000);
+    }, <?php echo $reloadTime; ?> * 1000);
 </script>
 <?php }
