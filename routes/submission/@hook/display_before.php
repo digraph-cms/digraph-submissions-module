@@ -36,8 +36,11 @@ if ($chunks) {
         $('#submission-chunks .submission-chunk a.mode-switch').click((e) => {
             var $target = $(e.target);
             var $wrapper = $target.closest('.submission-chunk');
-            $wrapper.replaceWith('<iframe class="embedded-iframe" src=' + $target.attr('href') +
-                ' class="loading" style="height:' + $wrapper.height() + 'px"></iframe>');
+            $wrapper.replaceWith(
+                '<div class="embedded-iframe loading"><iframe class="embedded-iframe resized" src=' +
+                $target.attr('href') +
+                ' style="height:' + $wrapper.height() + 'px"></iframe></div>'
+            );
             e.preventDefault();
             return false;
         });
