@@ -70,7 +70,7 @@ class Submission extends Noun
         return $this->parts()->complete();
     }
 
-    public function &window()
+    public function window()
     {
         if ($this->parent() instanceof SubmissionWindow) {
             return $this->parent();
