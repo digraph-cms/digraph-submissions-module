@@ -8,6 +8,8 @@
     box-shadow:0 0 0.5em rgba(127,127,127,0.5);
     iframe, .embedded-iframe {
         margin:0;
+        width: 100% !important;
+        max-width: 100% !important;
     }
 }
 
