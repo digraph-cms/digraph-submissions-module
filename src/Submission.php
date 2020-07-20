@@ -135,10 +135,6 @@ class Submission extends Noun
 
     public function isEditable()
     {
-        //parent isEditable allows access
-        if (parent::isEditable()) {
-            return true;
-        }
         //permissions through submissions category submission/edit
         if ($this->cms()->helper('permissions')->check('submission/edit', 'submissions')) {
             return true;
@@ -146,6 +142,10 @@ class Submission extends Noun
         //isMine and window is open
         if ($this->isMine() && $this->window()) {
             return $this->window()->open();
+        }
+        //parent handler
+        if (parent::isEditable()) {
+            return true;
         }
         //default false
         return false;
