@@ -1,10 +1,10 @@
 <?php
+$package->cache_noStore();
+
 if (!$package->noun()->isViewable()) {
     //deny access for those with no access
     $package->error(403);
 }
-//don't cache
-$package->noCache();
 
 $n = $cms->helper('notifications');
 

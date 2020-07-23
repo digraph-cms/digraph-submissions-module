@@ -1,7 +1,8 @@
 <?php
+$package->cache_noCache();
 if ($cms->helper('users')->user()) {
     //no cache for signed-in users
-    $package->noCache();
+    $package->cache_noStore();
 }
 //always make browser-side TTL 0
 $package['response.browserttl'] = 0;
