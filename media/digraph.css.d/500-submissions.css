@@ -38,7 +38,7 @@
     }
 
     .submission-chunk-label {
-        padding:0.25em $(spacing_base);
+        padding:0.25em;
         margin:-$(spacing_base);
         margin-bottom:$(spacing_base);
         font-weight:bold;
@@ -68,11 +68,14 @@
     a.mode-switch {
         display:block;
         position:absolute;
-        top:0;
-        right:0;
-        padding: 0.25em;
+        top:0.25em;
+        right:0.25em;
         text-decoration:none;
         color:$(color_notice);
+        line-height:1.4;
+        display:inline-block;
+        padding:0 0.25em;
+        background:#fff;
         &:hover {
             text-decoration:underline;
         }
@@ -96,6 +99,9 @@
         .submission-chunk-label {
             background:$(color_warning);
             color:#fff;
+        }
+        a.mode-switch {
+            right:0;
         }
     }
 }
