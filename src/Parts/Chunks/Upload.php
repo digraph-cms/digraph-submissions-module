@@ -20,7 +20,7 @@ class Upload extends AbstractChunk
         return $form;
     }
 
-    public function form_handle(Form &$form)
+    public function form_handle(Form $form)
     {
         $submission = $this->submission();
         $fs = $submission->cms()->helper('filestore');

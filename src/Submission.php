@@ -171,7 +171,7 @@ class Submission extends Noun
         return $this->url('display', null)->string();
     }
 
-    public function parentEdgeType(&$parent)
+    public function parentEdgeType($parent)
     {
         if ($parent instanceof SubmissionWindow) {
             return 'submission';

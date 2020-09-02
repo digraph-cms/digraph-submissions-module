@@ -9,7 +9,7 @@ use Formward\Fields\Input;
 
 class SubmitterField extends \Formward\Fields\Container
 {
-    public function __construct(string $label, string $name=null, FieldInterface $parent=null, CMS &$cms=null)
+    public function __construct(string $label, string $name=null, FieldInterface $parent=null, CMS $cms=null)
     {
         parent::__construct($label, $name, $parent);
         $this['firstname'] = new Input('First name');

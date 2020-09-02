@@ -15,7 +15,7 @@ class SubmitterMeta extends AbstractChunk
         return $form;
     }
 
-    public function form_handle(Form &$form)
+    public function form_handle(Form $form)
     {
         $this->submission()['submitter'] = $form['submitter']->value();
         $this->submission()->update();

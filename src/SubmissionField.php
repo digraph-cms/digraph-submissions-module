@@ -7,7 +7,7 @@ use Formward\FieldInterface;
 
 class SubmissionField extends \Formward\Fields\Container
 {
-    public function __construct(string $label, string $name=null, FieldInterface $parent=null, CMS &$cms=null)
+    public function __construct(string $label, string $name=null, FieldInterface $parent=null, CMS $cms=null)
     {
         parent::__construct($label, $name, $parent);
     }

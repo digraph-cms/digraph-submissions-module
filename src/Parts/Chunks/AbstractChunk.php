@@ -16,7 +16,7 @@ abstract class AbstractChunk
 
     abstract public function body_complete();
     abstract public function body_form() : Form;
-    abstract public function form_handle(Form &$form);
+    abstract public function form_handle(Form $form);
 
     public function instructions($set=null)
     {
@@ -160,7 +160,7 @@ abstract class AbstractChunk
         return $out;
     }
 
-    public function __construct(AbstractPartsClass &$parts, string $name, string $label)
+    public function __construct(AbstractPartsClass $parts, string $name, string $label)
     {
         $this->parts = $parts;
         $this->name = $name;

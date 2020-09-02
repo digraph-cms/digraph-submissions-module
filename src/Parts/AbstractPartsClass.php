@@ -31,7 +31,7 @@ abstract class AbstractPartsClass
         return $this->submission;
     }
 
-    public function __construct(Submission &$submission)
+    public function __construct(Submission $submission)
     {
         $this->submission = $submission;
         $this->chunks['submission'] = new Chunks\SubmissionMeta($this, 'submission', 'Submission information');
