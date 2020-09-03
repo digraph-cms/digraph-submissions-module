@@ -21,8 +21,8 @@ permissions:
     submission/*: [deny all]
     submission/submit: ["allow group user"]
     submission/status: ["allow group user"]
-    submission/edit: ["allow group webmaster"]
-    submission/view: ["allow group webmaster, editor"]
+    submission/edit: ["allow group admin"]
+    submission/view: ["allow group admin, editor"]
 
 factory_columns:
   content:
