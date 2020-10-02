@@ -24,5 +24,5 @@ if ($chunk->optional() && $package['url.args.optout']) {
 $package['response.browserttl'] = 0;
 $package['fields.page_title'] = '';
 //content only template
-$package['response.template'] = 'content-only.twig';
+$package['response.template'] = 'iframe.twig';
 echo $chunk->body();
