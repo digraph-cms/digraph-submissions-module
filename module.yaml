@@ -2,6 +2,10 @@ module:
   name: digraph_submissions
   namespace: Digraph\Modules\Submissions
 
+submissions:
+  status_ttl: 5
+  status_update: 10
+
 types:
   classes:
     submission: ${module.namespace}\Submission
