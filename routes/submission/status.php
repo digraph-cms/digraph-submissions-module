@@ -4,7 +4,7 @@ $package['response.ttl'] = $cms->config['submissions.status_ttl'];
 $package->makeMediaFile('status.json');
 $status = [
     'type' => 'none',
-    'message' => 'No status',
+    'message' => 'Unknown status',
 ];
 
 $submission = $package->noun();
