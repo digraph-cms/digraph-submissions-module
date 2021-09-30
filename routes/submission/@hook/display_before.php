@@ -47,6 +47,7 @@ if ($chunks) {
                             .removeClass('notification-warning')
                             .removeClass('notification-error')
                             .removeClass('notification-info')
+                            .removeClass('notification-notice')
                             .removeClass('notification-confirmation')
                             .addClass('notification-'+status.type)
                             .html(status.message);
